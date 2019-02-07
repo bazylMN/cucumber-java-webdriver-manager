@@ -1,0 +1,10 @@
+view/
+out/
+.gradle/
+gradle/
+.idea/
+gradlew
+gradlew.bat
+*.exe
+build
+target
