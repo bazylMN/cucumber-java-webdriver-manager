@@ -26,30 +26,73 @@
 * create assertions classes with methods and @Component annotation
 * delete example .feature files, steps classes, page objects classes and assertion classes
 
+### How to use Selenide
+If there is a need to use Selenide to find elements or take action, simply add one line in page object method:
+```
+WebDriverRunner.setWebDriver(your initialized driver);
+```
+
+Method in template, which is using Selenide to find element might look like below:
+```
+    @Autowired
+    private WebDriverManager webDriverManager;
+
+    private static final String JAM_MENU = ".Header-nav-item[href*=jam]";
+
+    public void clickJamMenu(){
+        WebDriverRunner.setWebDriver(webDriverManager.getDriver());
+        $(JAM_MENU).click();
+    }
+
+```
 ### How to run tests:
 #### With gradle command:
 
 ###### To run Cucumber tests with custom runTests task and with default browser, type:
- * 'runTests'
+```
+ runTests
+```
 
 ###### To run Cucumber tests with custom runTests task and with chosen browser, type:
- * '-Dbrowser=chrome runTests'
- * '-Dbrowser=firefox runTests'
- * '-Dbrowser=chromeHeadless runTests'
- * '-Dbrowser=iexplorer runTests'
+``` 
+-Dbrowser=chrome runTests
+```
+```
+-Dbrowser=firefox runTests
+```
+```
+-Dbrowser=chromeHeadless runTests
+```
+```
+-Dbrowser=iexplorer runTests
+```
 
 ###### To run Cucumber tests with default browser, type:
-* 'clean test'
+```
+clean test
+```
 
 ###### To run Cucumber tests with chosen browser, type:
-* 'clean -Dbrowser=chrome test'
-* 'clean -Dbrowser=firefox test'
-* 'clean -Dbrowser=chromeHeadless test'
-* 'clean -Dbrowser=iexplorer test'
+```
+clean -Dbrowser=chrome test
+```
+```
+clean -Dbrowser=firefox test
+```
+```
+clean -Dbrowser=chromeHeadless test
+```
+```
+clean -Dbrowser=iexplorer test
+```
 
 #### With IDE (JUnit):
-* run CucumberRunner class
-* or run .feature file / directory with .feature files / scenario in .feature file
+```
+run CucumberRunner class
+```
+```
+or run .feature file / directory with .feature files / scenario in .feature file
+```
 
 ### Reports and screenshots
 Reports are placed in 'target' directory, including screenshots of failed scenarios.
