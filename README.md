@@ -27,12 +27,12 @@
 * delete example .feature files, steps classes, page objects classes and assertion classes
 
 ### How to use Selenide
-If there is a need to use Selenide to find elements or take action, simply add one line in page object method:
+If there is a need to use Selenide as a driver provider to find elements or take an action, simply add one line in a page object method:
 ```
 WebDriverRunner.setWebDriver(your initialized driver);
 ```
 
-Method in template, which is using Selenide to find element might look like below:
+A method in the template, which is using Selenide to find an element might look like below:
 ```
     @Autowired
     private WebDriverManager webDriverManager;
@@ -45,6 +45,21 @@ Method in template, which is using Selenide to find element might look like belo
     }
 
 ```
+Or paste the method 'setWebDriver' in the WebDriverManager class like below and use Selenide as a driver provider across the project, mixing it with Selenium WebDriver (you can use both in methods):
+```
+            (...)
+            default:
+                System.getProperty("browser", "chrome");
+                System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+                webDriver = new ChromeDriver();
+                break;
+        }
+        WebDriverRunner.setWebDriver(webDriver);
+        return webDriver;
+    }
+
+```
+
 ### How to run tests:
 #### With gradle command:
 
