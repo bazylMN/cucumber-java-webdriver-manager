@@ -43,7 +43,7 @@ Steps classes implements En interface and are prepared to use code by 'lambda-wa
 ```
 
 ### How to use Selenide
-If there is a need to use Selenide to find elements or take action, simply add one line in page object method:
+If there is a need to use Selenide as a driver provider to find elements or take an action, simply add one line in a page object method:
 ```
 WebDriverRunner.setWebDriver(your initialized driver);
 ```
@@ -61,7 +61,8 @@ A method in template, which is using Selenide to find element might look like be
     }
 
 ```
-The method 'getWebDriver()' in WebDriverManager class is configured to use Selenide library:
+
+Or paste the method 'setWebDriver(driver)' in the WebDriverManager class like below and use Selenide as a driver provider across the project, mixing it with Selenium WebDriver (you can use both in methods):
 ```
             (...)
             default:
@@ -75,7 +76,7 @@ The method 'getWebDriver()' in WebDriverManager class is configured to use Selen
     }
 
 ```
-You can choose which way Selenide is going to be used in project (only partially in particular method or globally with WebDriverManager class)
+The method 'getWebDriver()' in WebDriverManager class is already configured to use Selenide library. You can choose which way Selenide is going to be used in project (only partially in particular method or globally with WebDriverManager class)
  
 ### How to run tests:
 #### With gradle command:
