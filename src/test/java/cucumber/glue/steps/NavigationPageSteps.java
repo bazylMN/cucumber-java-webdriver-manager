@@ -1,10 +1,9 @@
 package cucumber.glue.steps;
 
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
 import cucumber.api.java8.En;
 import cucumber.glue.assertions.NavigationPageStepsAssertions;
 import cucumber.glue.pageObjects.NavigationPageObjects;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class NavigationPageSteps implements En {
@@ -14,14 +13,21 @@ public class NavigationPageSteps implements En {
     @Autowired
     private NavigationPageStepsAssertions assertions;
 
-    @Given("I go to {string} page")
-    public void iGoToPage(String urlName){
-        navigationPageObjects.getPage(urlName);
-   }
+    public NavigationPageSteps(){
+        Given("^I go to (.*?) page", (String urlName) -> {
+            navigationPageObjects.getPage(urlName);
+        });
 
-    @Then("I should be on {string} page")
-    public void iShouldBeOnPage(String name){
-        String currentPage = navigationPageObjects.getCurrentUrl();
-        assertions.assertPageIsCorrect(currentPage, name);
+        Then("^I should be on (.*?) page", (String name) -> {
+            Assert.assertTrue(navigationPageObjects.getCurrentUrl().contains(name));
+        });
+
+        When("^I click jam on menu", () -> {
+            navigationPageObjects.clickJam();
+        });
+
+        And("I click jam on subpage", () ->{
+            navigationPageObjects.clickJamOnSubpage();
+        });
     }
 }

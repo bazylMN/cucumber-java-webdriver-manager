@@ -1,5 +1,5 @@
 # Cucumber-java-webdriver-manager template
-#### with Cucumber-java, Cucumber Spring, Selenide library and webdriver manager (Selenium WebDriver) for:
+#### with Cucumber-java, Cucumber Spring, custom annotation @PageObject, lambda expression ready, Selenide library and webdriver manager (Selenium WebDriver) for:
 * ##### chrome
 * ##### firefox
 * ##### chrome headless
@@ -26,13 +26,29 @@
 * create assertions classes with methods and @Component annotation
 * delete example .feature files, steps classes, page objects classes and assertion classes
 
+### Custom annotation @PageObject
+Add @PageObject in page object classes instead of Spring @Component annotation
+
+### Lambda expression ready
+Steps classes implements En interface and are prepared to use code by 'lambda-way'. Example of lambda expression is used in SignUpFormPageObjects class:
+```
+    private void sendKeysForInputWithAttrubuteName(String partValueName, String keyToSend){
+        webDriverManager.getDriver().findElements(By.cssSelector(USER_INPUT))
+                .stream()
+                .filter(elem->elem.getAttribute(USER_INPUT_ATTRIBUTE_NAME).contains(partValueName))
+                .findFirst()
+                .get()
+                .sendKeys(keyToSend);
+    }
+```
+
 ### How to use Selenide
 If there is a need to use Selenide to find elements or take action, simply add one line in page object method:
 ```
 WebDriverRunner.setWebDriver(your initialized driver);
 ```
 
-Method in template, which is using Selenide to find element might look like below:
+A method in template, which is using Selenide to find element might look like below (there is used 'setWebDriver(driver)' method):
 ```
     @Autowired
     private WebDriverManager webDriverManager;
@@ -45,6 +61,22 @@ Method in template, which is using Selenide to find element might look like belo
     }
 
 ```
+The method 'getWebDriver()' in WebDriverManager class is configured to use Selenide library:
+```
+            (...)
+            default:
+                System.getProperty("browser", "chrome");
+                System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+                webDriver = new ChromeDriver();
+                break;
+        }
+        WebDriverRunner.setWebDriver(webDriver);
+        return webDriver;
+    }
+
+```
+You can choose which way Selenide is going to be used in project (only partially in particular method or globally with WebDriverManager class)
+ 
 ### How to run tests:
 #### With gradle command:
 

@@ -1,14 +1,19 @@
 Feature: As a user i want to visit another cucumber pages
 
-Scenario: Visit cucumber pages
-  Given I go to "https://cucumber.io/blog" page
-    Then I should be on "https://cucumber.io/blog" page
-    When I go to "https://cucumber.io/events" page
-    Then I should be on "https://cucumber.io/events" page
-
-
-Scenario: Visit another cucumber pages
-  Given I go to "https://docs.cucumber.io/" page
-    Then I should be on "https://docs.cucumber.io/" page
-    When I go to "https://docs.cucumber.io/cucumber/" page
-    Then I should be on "https://docs.cucumber.io/cucumber/" page
+#  Scenario Outline: Visit cucumber pages
+#    Given I go to <blog> page
+#    Then I should be on <blog> page
+#    When I go to <events> page
+#    Then I should be on <events> page
+#    Examples:
+#      |blog                     |events                     |
+#      |https://cucumber.io/blog |https://cucumber.io/events |
+#
+#  Scenario Outline: Visit another cucumber pages
+#    Given I go to <home> page
+#    Then I should be on <home> page
+#    When I go to <docs> page
+#    Then I should be on <docs> page
+#    Examples:
+#      |home                      |docs                              |
+#      |https://docs.cucumber.io/ |https://docs.cucumber.io/cucumber |
