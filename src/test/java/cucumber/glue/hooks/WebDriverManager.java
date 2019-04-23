@@ -1,5 +1,6 @@
 package cucumber.glue.hooks;
 
+import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,9 +10,9 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Component
@@ -23,7 +24,7 @@ public class WebDriverManager {
         return webDriver;
     }
 
-    @PostConstruct
+    @Bean(destroyMethod = "quit")
     public WebDriver getWebDriver(){
         String currentWebDriver = System.getProperty("browser", "");
         switch(currentWebDriver) {
@@ -63,13 +64,19 @@ public class WebDriverManager {
                 webDriver = new ChromeDriver();
                 break;
         }
+        /**
+         * Using Selenide driver:
+         *
+         * WebDriverRunner.setWebDriver(webDriver);
+         */
+        WebDriverRunner.setWebDriver(webDriver);
         return webDriver;
     }
 
     @PreDestroy
     public void closeSession(){
-        webDriver.manage().deleteAllCookies();
-        webDriver.close();
-        webDriver.quit();
+        getDriver().manage().deleteAllCookies();
+        getDriver().close();
+        getDriver().quit();
     }
 }
